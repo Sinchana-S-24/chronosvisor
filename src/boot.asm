@@ -6,10 +6,27 @@ align 4
     dd 0x00000000
     dd -(0x1BADB002 + 0x00000000)
 
+extern gdt_descriptor
+extern idt_descriptor
+extern init_timer
+
 section .text
 global _start
 
+load_gdt:
+    lgdt [gdt_descriptor]
+    ret
+
+load_idt:
+    lidt [idt_descriptor]
+    ret
+
 _start:
+
+    call load_gdt
+    call load_idt
+    call init_timer
+    sti
 
     mov edi, 0xb8000
     mov esi, message
