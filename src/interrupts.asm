@@ -1,11 +1,31 @@
-global isr_default
+BITS 32
 
-isr_default:
+global pic_remap
 
-pusha
+pic_remap:
 
-mov al,'I'
-out 0xE9,al
+    mov al,0x11
+    out 0x20,al
+    out 0xA0,al
 
-popa
-iret
+    mov al,0x20
+    out 0x21,al
+
+    mov al,0x28
+    out 0xA1,al
+
+    mov al,0x04
+    out 0x21,al
+
+    mov al,0x02
+    out 0xA1,al
+
+    mov al,0x01
+    out 0x21,al
+    out 0xA1,al
+
+    mov al,0x0
+    out 0x21,al
+    out 0xA1,al
+
+    ret

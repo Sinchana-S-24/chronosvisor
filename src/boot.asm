@@ -10,6 +10,7 @@ extern gdt_descriptor
 extern idt_descriptor
 extern init_timer
 extern setup_idt
+extern pic_remap
 
 section .text
 global _start
@@ -25,6 +26,7 @@ load_idt:
 _start:
 
     call load_gdt
+    call pic_remap
     call setup_idt
     call load_idt
     call init_timer
