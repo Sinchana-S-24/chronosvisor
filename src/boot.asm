@@ -9,6 +9,7 @@ align 4
 extern gdt_descriptor
 extern idt_descriptor
 extern init_timer
+extern setup_idt
 
 section .text
 global _start
@@ -24,6 +25,7 @@ load_idt:
 _start:
 
     call load_gdt
+    call setup_idt
     call load_idt
     call init_timer
     sti
